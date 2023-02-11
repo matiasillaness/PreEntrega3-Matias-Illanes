@@ -1,10 +1,19 @@
-//This is the section where the cards will be displayed
+
 const sectionCard = document.getElementById("sectionCard")
-//This function will display the cards
-function mostrarProducto() {
-    //This loop will go through the array of products
-    productos.forEach((item) => {
-        //This variable will create a div for each card
+
+
+
+
+let productos = fetch('https://dummyjson.com/products')
+        .then(res => res.json())
+        .then(data => {console.log(data), mostrarProducto(data.products), products = data.products})
+        .catch(error => console.error('Error:', error))
+        .finally(() => console.log('Request finished'))
+
+
+
+function mostrarProducto(products) {
+    products.forEach((item) => {
         const cardProductos = document.createElement("div")
         cardProductos.classList.add("col-lg-6");
         cardProductos.classList.add("col-md-6");
@@ -12,42 +21,58 @@ function mostrarProducto() {
         cardProductos.classList.add("col-12")
         cardProductos.classList.add("col-xl-4");
         cardProductos.classList.add("col-xxl-3");
-        //This will add the HTML code to the div
         cardProductos.innerHTML = `
-        <div id="divCard" class="card" style="width: 25rem;">
-            <img src="${item.img}" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">${item.nombre}</h5>
-                <p class="card-text">${item.descripcion}</p>
-                <p class="card-text">$${item.precio}</p>
-                <button onclick= agregarProducto(this) class="btnAddToCart" id="${item.id}">Agregar Carrito</button>
-            </div>
-        </div>
-      `
-        //This will add the div to the section
+                <div id="divCard" class="card" style="width: 25rem;">
+                    <img src="${item.images[1]}" class="card-img-top" alt="${item.title}">
+                    <div class="card-body">
+                        <h5 class="card-title">${item.title}</h5>
+                        <p class="card-text">${item.description}</p>
+                        <p class="card-text">$${item.price}</p>
+                        <button onclick= agregarProducto(this) class="btnAddToCart" id="${item.id}">Agregar Carrito</button>
+                    </div>
+                </div>
+              `
         sectionCard.append(cardProductos);
     })
 }
-mostrarProducto(); //borrar mas adelante
-
 
 function agregarProducto(element) {
     let selectedId = element.id;
     console.log(selectedId);
-    let productosFinded = productos.find (function (o) { return o.id === Number(selectedId) });
-    let productFoundInCart = carProducts.find (function (o) { return o.id === productosFinded.id });
-    if (productFoundInCart) {   
-        productosFinded.stock >= 0? productFoundInCart.cantidad++ && productosFinded.stock--: alert("sin stock");
+    let productosFinded = products.find(function (o) { return o.id === Number(selectedId) });
+    console.log("xdxdxdxdxd",productosFinded);
+    let productFoundInCart = carProducts.find(function (o) { return o.id === productosFinded.id });
+ 
+
+    if (productFoundInCart) {
+        productFoundInCart.stock > 0 ? productFoundInCart.cantidad++ && productFoundInCart.stock-- : alert("sin stock");
     }
     else {
+        productosFinded.cantidad = 1;
         carProducts.push(productosFinded);
     }
-    console.log(carProducts)
+    
+    console.log("array carrito",carProducts)
     let carProductsString = JSON.stringify(carProducts);
     localStorage.setItem('carProducts', carProductsString);
+    alerta();
 }
 
-
+function alerta(){
+Toastify({
+    text: "Producto agregado al carrito!",
+    duration: 3000,
+    destination: "https://github.com/apvarun/toastify-js",
+    newWindow: true,
+    close: false,
+    gravity: "bottom", // `top` or `bottom`
+    position: "center", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+      background: "linear-gradient(to right, black, grey)",
+    }
+  }).showToast()
+}
 
 
 

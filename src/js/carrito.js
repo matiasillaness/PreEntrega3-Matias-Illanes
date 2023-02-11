@@ -15,13 +15,13 @@ function mostrarShop() {
                 <div class="card mb-3 card-carrito-2" style="width: 1100px;">
                 <div class="row g-0">
                 <div class="col-md-3">
-                    <img src="${item.img}" class="img-fluid rounded-start" alt="...">
+                    <img src="${item.images[1]}" class="img-fluid rounded-start" alt="...">
                 </div>
                 <div class="col-md-8 div-card-shop">
                     <div class="card-body">
-                    <h5 class="card-title">${item.nombre}</h5>
-                    <p class="card-text">${item.descripcion}</button>
-                    <p>Cantidad: ${item.cantidad}</p>
+                    <h5 class="card-title">${item.title}</h5>
+                    <p class="card-text">${item.description}</button>
+                    <p>Cantidad: ${item.stock}</p>
                     <button class="btnEliminar" onclick=deleteCarrito(this) id="${item.id}">Eliminar del Carrito</button>
                     </div>
                 </div>
@@ -60,7 +60,7 @@ borrarBoton();
 let precioTotal;
 const sumTotal = document.getElementById("sumTotal")
 function sumarCarrito(){
-    let precio = carProductsEnCarrito.reduce((precioTotal, element)=> precioTotal += element.precio*element.cantidad,0)
+    let precio = carProductsEnCarrito.reduce((precioTotal, element)=> precioTotal += element.price*element.cantidad,0)
     sumTotal.innerHTML = `El precio Total es: $${precio}`
 }
 sumarCarrito();
