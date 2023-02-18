@@ -1,14 +1,42 @@
 
 const sectionCard = document.getElementById("sectionCard")
+const loading = document.getElementById("loading")
 
 
 
-
+let products = null
 let productos = fetch('https://dummyjson.com/products')
         .then(res => res.json())
-        .then(data => {console.log(data), mostrarProducto(data.products), products = data.products})
+        .then(data => {console.log(data), products = data.products})
         .catch(error => console.error('Error:', error))
         .finally(() => console.log('Request finished'))
+
+       
+    
+    printCargando()
+    setTimeout(() => {      
+        if (products) {
+            mostrarProducto(products)
+            printCargando();
+        } else {
+            printError()
+        }
+    }, 5000)
+
+function printCargando() {
+    //mostrar mensaje de cargando y cuando termine de cargar el mensaje desaparece
+    if(products){
+        loading.innerHTML = ``
+    }
+    else{
+        loading.innerHTML = `
+        <div class="col-12 spinnerDiv">
+            <div class="spinner-border text-black" role="status">
+        </div>
+    `
+    }
+
+}
 
 
 
@@ -34,7 +62,23 @@ function mostrarProducto(products) {
               `
         sectionCard.append(cardProductos);
     })
+    }
+  
+
+
+function printError(){
+
+        sectionCard.innerHTML = `
+        <div class="col-12">
+            <h1>Error 404, Server Not Found</h1>
+            <h2>Intenta recargar la pagina mas tarde</h2> 
+        </div>
+    `
+    
+    
+
 }
+
 
 function agregarProducto(element) {
     let selectedId = element.id;
