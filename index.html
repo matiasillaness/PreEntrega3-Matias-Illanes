@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="./src/css/style.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js" defer></script>
+    <script src="./src/js/index.js"></script>
 </head>
 
 <body>
@@ -37,17 +38,17 @@
     </nav>
   </header>
   <main id="main-index">
-    <form class="formulario-inicio">
+    <form class="formulario-inicio" id="formLogin">
       <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Nombre de Usuario</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <label for="exampleInputEmail1" class="form-label" >Nombre de Usuario</label>
+        <input type="text" name="name" class="form-control nombreUsuario" id="nombreUsuario" aria-describedby="emailHelp">
         <div id="emailHelp" class="form-text"></div>
       </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
+        <input type="password" name="password" class="form-control" id="nombreContrasenia">
       </div>
-      <button type="submit" class="btn btn-dark w-100">Entrar</button>
+      <button type="submit" class="btn btn-dark w-100 botonSubmit" id="botonSubmit">Entrar</button>
     </form>
   </main>
   <footer>

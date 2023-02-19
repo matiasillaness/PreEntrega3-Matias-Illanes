@@ -8,6 +8,34 @@
     <script src="../js/index.js"></script>
 </head>
 <body>
-    
+    <form id="login-form">
+        <label for="username">Nombre de usuario:</label>
+        <input type="text" id="username" name="username" required>
+        
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required>
+        
+        <button type="submit">Iniciar sesión</button>
+      </form>
+
+      <script>
+        document.getElementById("login-form").addEventListener("submit", function(event) {
+          // Detener el envío del formulario
+          event.preventDefault();
+          
+          // Obtener los valores ingresados por el usuario
+          var username = document.getElementById("username").value;
+          var password = document.getElementById("password").value;
+          
+          // Validar los valores de nombre de usuario y contraseña
+          if (username === "admin" && password === "admin") {
+            // Redirigir al usuario a otra página
+            window.location.href = "otra-pagina.html";
+          } else {
+            alert("Nombre de usuario o contraseña incorrectos");
+          }
+        });
+      </script>
+      
 </body>
 </html>
